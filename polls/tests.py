@@ -4,7 +4,8 @@ from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
 from django.conf import settings
-
+from faker import Faker
+fake = Faker()
     
 class MySeleniumTests(StaticLiveServerTestCase):
     fixtures = ['testdb.json',]
@@ -110,8 +111,9 @@ class MySeleniumTests2(StaticLiveServerTestCase):
         self.selenium.find_element(By.XPATH,'//a[@href="/admin/auth/user/"]').click()
         self.selenium.find_element(By.XPATH,"//a[contains(text(),'Add user')]").click()
 
+        username = fake.first_name()
         username_input2 = self.selenium.find_element(By.NAME,"username")
-        username_input2.send_keys('ex16')
+        username_input2.send_keys(username)
 
         password_input2 = self.selenium.find_element(By.NAME,"password1")
         password_input2.send_keys('Superlocal123')
@@ -182,7 +184,7 @@ class MySeleniumTests2(StaticLiveServerTestCase):
         self.selenium.find_element(By.XPATH,"//a[contains(text(),'Log in again')]").click()
 
         username_input4 = self.selenium.find_element(By.NAME,"username")
-        username_input4.send_keys('ex16')
+        username_input4.send_keys(username)
 
         password_input = self.selenium.find_element(By.NAME,"password")
         password_input.send_keys('Superlocal123')
